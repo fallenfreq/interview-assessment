@@ -176,7 +176,7 @@ function clearDivisors() {
       All input elements should have a label for accessibility and user instructions.
       A class has been added to the input for styling, which can replace these <br> tags.
       The input could be shown even if the value is not a valid input which can be a smoother experience for the user.
-      An error message can then be displayed when the input is invalid.
+      An error message can then be displayed when the input is invalid using aria-live="polite" for accessability.
       -->
 
     <!-- type="number" VS type="text":
