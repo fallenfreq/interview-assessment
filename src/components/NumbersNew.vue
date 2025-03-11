@@ -7,7 +7,7 @@ import { ref, type Ref, computed, watch } from 'vue'
 // Naming conventions are unclear or ambiguous and not self-explanatory.
 
 // `maxLimit` and `startLimit` are now configurable via props making the component more reusable and flexible.
-// `props` need to be defined with the type-based Declaration provide type information.
+// `props` need to be defined with the type-based Declaration to provide type information.
 const props = defineProps<{
   maxLimit: number
   startLimit: number
