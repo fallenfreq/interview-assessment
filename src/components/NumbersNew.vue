@@ -76,7 +76,7 @@ watch(rawLimit, (newValue) => {
   // Setting an upper limit to prevent the user from entering a number that is too large to be computed.
   // This also helps to keep the UI more predictable since we can determine the maximum width of a number.
   if (parsedValue > props.maxLimit) {
-    errorMessage.value = 'Please enter a number less than or equal to 1000.'
+    errorMessage.value = `Please enter a number less than or equal to ${props.maxLimit}.`
     limit.value = 0
   return
 }
