@@ -47,7 +47,7 @@ const rawLimit: Ref<string> = ref(props.startLimit.toString())
 
 // `limit` stores a valid number derived from `rawLimit`.
 // This is used by the rest of the app to control the grid generation.
-const limit: Ref<number> = ref(100)
+const limit: Ref<number> = ref(props.startLimit)
 
 // `errorMessage` holds validation errors separately from `limit`.
 const errorMessage = ref('')
