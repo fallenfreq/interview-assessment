@@ -18,11 +18,18 @@ const props = defineProps<{
 // OLD CODE
 // const numbers = [];
 
+// ADDRESSING COMMENTS THAT SHUFFLE FUNCTION WAS NOT IN THE SAME STYLE AS THE REST OF THE CODE
+// Range function that we can pass to the shuffle function and use inside it for the Fisher-Yates shuffle
+// Before we were simply passing Array.from({ length: limit.value }, (_, i) => i + 1) to shuffle
+function range(from: number, to: number): number[] {
+  return Array.from({ length: to - from + 1 }, (_, i) => i + from)
+}
+
 // Computed properties automatically cache and update when their dependencies change,
 // ensuring that the array is only reshuffled when `limit` changes.
 
 const shuffledNumbers = computed(() => {
-  return shuffle(Array.from({ length: limit.value }, (_, i) => i + 1))
+  return shuffle(range(1, limit.value))
 })
 
 // This is used to style the active numbers instead of manually adding and removing classes.
@@ -107,13 +114,32 @@ watch(rawLimit, (newValue) => {
 // }
 
 // NEW FUNCTION
+// function shuffle(array: number[]): number[] {
+//   for (let i = array.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1))
+//     ;[array[i], array[j]] = [array[j], array[i]]
+//   }
+//   return array
+// }
+
+// ADDRESSING COMMENTS THAT SHUFFLE FUNCTION WAS NOT IN THE SAME STYLE AS THE REST OF THE CODE
+// Forwards fisher yates shuffle using range that is also used to generate the numbers
+// for (let i = array.length - 1; i > 0; i--) is still the most elegant solution if
+// range was not required to generate the array passed to shuffle
+// I still use I commonly for the index in loops,
+// so the only thing that could be argued as out of place is `j` variable name for the random index
+
+// Pick a random index from 0 to index (inclusive)
+// The swap space increases by 1 each iteration instead of decreasing
+// Iterate forward from 1 to array.length - 1
 function shuffle(array: number[]): number[] {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
+  for (const index of range(1, array.length - 1)) {
+    const randomIndex = Math.floor(Math.random() * (index + 1))
+    ;[array[index], array[randomIndex]] = [array[randomIndex], array[index]]
   }
   return array
 }
+
 
 // `hov` NOTES:
 // `nums`, `num`, and `number` are not descriptive and are confusing.
@@ -176,7 +202,7 @@ function clearDivisors() {
       All input elements should have a label for accessibility and user instructions.
       A class has been added to the input for styling, which can replace these <br> tags.
       The input could be shown even if the value is not a valid input which can be a smoother experience for the user.
-      An error message can then be displayed when the input is invalid using aria-live="polite" for accessability.
+      An error message can then be displayed when the input is invalid using aria-live="polite" for accessibility.
       -->
 
     <!-- type="number" VS type="text":
